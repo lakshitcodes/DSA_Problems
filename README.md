@@ -38,7 +38,7 @@ In the GeeksForGeeks directory, you can search the solution by question name whi
 
 2. **Navigate to Platform Folder:**
 
-   - Once cloned or downloaded, navigate to the specific platform folder (CodeStudio, GeeksforGeeks, InterviewBit, LeetCode).
+   - Once cloned or downloaded, navigate to the specific platform folder (Codechef, Codeforces, CSES, LeetCode, GeeksForGeeks).
 
 3. **Browse and View Solutions:**
    - Browse through the folders or use the search functionality to find a specific problem.
