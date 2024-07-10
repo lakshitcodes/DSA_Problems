@@ -43,132 +43,108 @@ For each testcase, output −1 if the required condition is impossible.
 Otherwise, output six numbers – la,ra,lb,rb,lc,rc, the respective starting and ending indices (1-indexed) of the subarrays for Alice, Bob and Charlie, respectively.
 */
 
-vector<int> findVertex(vector<int> &a, vector<int> &b, vector<int> &c)
+vector<int> helper(vector<int> a, vector<int> b, vector<int> c, long long sum)
 {
-    int tot = accumulate(a.begin(), a.end(), 0);
     int n = a.size();
-    int value = ceil((double)tot / 3);
-    vector<int> ans(6, -1);
-    int l1, l2, l3, r1, r2, r3;
-    l1 = l2 = l3 = r1 = r2 = r3 = 0;
-    int curr = 0;
-    while (curr < value && r1 < n)
+
+    long long v = ceil((long double)(sum) / 3);
+
+    vector<int> z(6, -1);
+    vector<int> x(6);
+
+    int i = 0;
+
+    long long y = 0;
+    while (i < n && y < v)
     {
-        curr += a[r1];
-        r1++;
+        y += a[i];
+        i++;
     }
-    if (curr < value)
+    if (i >= n)
+        return z;
+
+    x[0] = 0;
+    x[1] = i - 1;
+
+    y = 0;
+    x[2] = i;
+
+    while (i < n && y < v)
     {
-        return ans;
+        y += b[i];
+        i++;
     }
-    curr = 0;
-    l2 = r1;
-    r2 = l2;
-    while (curr < value && r2 < n)
+    if (i >= n)
+        return z;
+    x[3] = i - 1;
+
+    y = 0;
+    x[4] = i;
+
+    while (i < n && y < v)
     {
-        curr += b[r2];
-        r2++;
+        y += c[i];
+        i++;
     }
-    if (curr < value)
-    {
-        return ans;
-    }
-    curr = 0;
-    l3 = r2;
-    r3 = l3;
-    while (curr < value && r3 < n)
-    {
-        curr += c[r3];
-        r3++;
-    }
-    if (r3 < n)
-    {
-        r3 = n;
-    }
-    if (curr < value)
-    {
-        return ans;
-    }
-    return {l1 + 1, r1, l2 + 1, r2, l3 + 1, r3};
+    if (y < v)
+        return z;
+    x[5] = i - 1;
+
+    return x;
 }
 
 int main()
 {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(NULL);
     int t;
     cin >> t;
+
     while (t--)
     {
         int n;
         cin >> n;
-        vector<int> a(n), b(n), c(n);
-        for (auto &i : a)
-        {
-            cin >> i;
-        }
-        for (auto &i : b)
-        {
-            cin >> i;
-        }
-        for (auto &i : c)
-        {
-            cin >> i;
-        }
-        vector<int> ans;
 
-        ans = findVertex(a, b, c);
-        if (ans[0] != -1)
-        {
+        vector<int> a(n);
+        vector<int> b(n);
+        vector<int> c(n);
 
-            for (auto i : ans)
-            {
-                cout << i << ' ';
-            }
-            cout << endl;
-            continue;
-        }
+        for (int i = 0; i < n; i++)
+            cin >> a[i];
 
-        ans = findVertex(a, c, b);
-        if (ans[0] != -1)
-        {
+        for (int i = 0; i < n; i++)
+            cin >> b[i];
 
-            cout << ans[0] << " " << ans[1] << ' ' << ans[4] << ' ' << ans[5] << ' ' << ans[2] << " " << ans[3] << endl;
-            continue;
-        }
+        for (int i = 0; i < n; i++)
+            cin >> c[i];
 
-        ans = findVertex(b, a, c);
-        if (ans[0] != -1)
-        {
+        long long sum = 0;
 
-            cout << ans[2] << " " << ans[3] << ' ' << ans[0] << ' ' << ans[1] << ' ' << ans[4] << " " << ans[5] << endl;
-            continue;
-        }
+        for (int x : a)
+            sum += x;
 
-        ans = findVertex(b, c, a);
-        if (ans[0] != -1)
-        {
+        vector<int> e = helper(a, b, c, sum);
+        vector<int> f = helper(a, c, b, sum);
+        vector<int> g = helper(b, a, c, sum);
+        vector<int> h = helper(b, c, a, sum);
+        vector<int> i = helper(c, a, b, sum);
+        vector<int> j = helper(c, b, a, sum);
 
-            cout << ans[4] << " " << ans[5] << ' ' << ans[0] << ' ' << ans[1] << " " << ans[2] << " " << ans[3] << endl;
-            continue;
-        }
+        // cout<<sum/3<<endl;
 
-        ans = findVertex(c, a, b);
-        if (ans[0] != -1)
-        {
-
-            cout << ans[2] << ' ' << ans[3] << " " << ans[4] << " " << ans[5] << ' ' << ans[0] << " " << ans[1] << endl;
-            continue;
-        }
-
-        ans = findVertex(c, b, a);
-        if (ans[0] != -1)
-        {
-
-            cout << ans[4] << ' ' << ans[5] << " " << ans[0] << " " << ans[1] << ' ' << ans[2] << " " << ans[3] << endl;
-            continue;
-        }
-        cout << -1 << endl;
+        if (e[0] != -1)
+            cout << e[0] + 1 << " " << e[1] + 1 << " " << e[2] + 1 << " " << e[3] + 1 << " " << e[4] + 1 << " " << e[5] + 1 << endl;
+        else if (f[0] != -1)
+            cout << f[0] + 1 << " " << f[1] + 1 << " " << f[4] + 1 << " " << f[5] + 1 << " " << f[2] + 1 << " " << f[3] + 1 << endl;
+        else if (g[0] != -1)
+            cout << g[2] + 1 << " " << g[3] + 1 << " " << g[0] + 1 << " " << g[1] + 1 << " " << g[4] + 1 << " " << g[5] + 1 << endl;
+        else if (h[0] != -1)
+            cout << h[4] + 1 << " " << h[5] + 1 << " " << h[0] + 1 << " " << h[1] + 1 << " " << h[2] + 1 << " " << h[3] + 1 << endl;
+        else if (i[0] != -1)
+            cout << i[2] + 1 << " " << i[3] + 1 << " " << i[4] + 1 << " " << i[5] + 1 << " " << i[0] + 1 << " " << i[1] + 1 << endl;
+        else if (j[0] != -1)
+            cout << j[4] + 1 << " " << j[5] + 1 << " " << j[2] + 1 << " " << j[3] + 1 << " " << j[0] + 1 << " " << j[1] + 1 << endl;
+        else
+            cout << -1 << endl;
     }
+
     return 0;
 }
