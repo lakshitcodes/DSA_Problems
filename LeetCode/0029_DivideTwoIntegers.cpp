@@ -10,12 +10,16 @@ public:
     {
         std::ios_base::sync_with_stdio(false);
         std::cin.tie(NULL);
-        int dvd = abs(dividend), dvs = abs(divisor);
+        if (dividend == INT_MIN && divisor == -1)
+        {
+            return INT_MAX;
+        }
+        long long dvd = labs(dividend), dvs = labs(divisor);
         int sign = (dividend > 0) ^ (divisor > 0) == 0 ? 1 : -1;
-        int result = 0;
+        long long result = 0;
         while (dvd >= dvs)
         {
-            int temp = dvs, mul = 1;
+            long long temp = dvs, mul = 1;
             while (temp << 1 <= dvd)
             {
                 temp <<= 1;
