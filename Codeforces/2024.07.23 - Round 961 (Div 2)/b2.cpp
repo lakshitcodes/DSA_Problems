@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// This gives wrong answer on testcase 3
-
 /*
 B2. Bouquet (Hard Version)
 time limit per test1.5 seconds
@@ -47,89 +45,45 @@ int main()
         ll n;
         ll coins;
         cin >> n >> coins;
-        vi uniquePetals(n), count(n);
+        vector<pair<ll, ll>> uniquePetals(n);
 
         for (ll i = 0; i < n; ++i)
         {
-            cin >> uniquePetals[i];
+            cin >> uniquePetals[i].first;
         }
         for (ll i = 0; i < n; ++i)
         {
-            cin >> count[i];
+            cin >> uniquePetals[i].second;
         }
-
+        sort(uniquePetals.begin(), uniquePetals.end());
         if (coins == 0)
         {
             cout << 0 << endl;
             continue;
         }
-
-        umap<ll, ll> mp;
-        for (int i = 0; i < n; i++)
-        {
-            mp[uniquePetals[i]] = count[i];
-        }
-
-        sort(uniquePetals.begin(), uniquePetals.end());
-
         ll maxAns = 0;
 
-        for (const auto &petal : uniquePetals)
+        for (int i = 0; i < n; i++)
         {
-            ll ans = 0;
-            ll temp = coins;
-
-            ll currFreq = mp[petal];
-            ll currElement = petal;
-            ll currCost = currFreq * currElement;
-
-            if (temp < currCost)
-            {
-                ans += (temp / currElement) * currElement;
-                temp %= currElement;
-            }
-            else
-            {
-                ans += currCost;
-                temp -= currCost;
-            }
+            ll ans = min(coins / uniquePetals[i].first, uniquePetals[i].second) * uniquePetals[i].first;
             maxAns = max(maxAns, ans);
-            if (mp.count(currElement + 1))
-            {
-                for (int i = max(0LL, mp[currElement] - 100); i <= mp[currElement]; i++)
-                {
-                    ans = 0, temp = coins;
-                    ll currFreq = i;
-                    ll currCost = currFreq * currElement;
+        }
+        for (int i = 0; i < n - 1; i++)
+        {
+            if (uniquePetals[i].first + 1 != uniquePetals[i + 1].first)
+                continue;
+            ll curr = coins;
 
-                    if (temp < currCost)
-                    {
-                        ans += (temp / currElement) * currElement;
-                        temp %= currElement;
-                    }
-                    else
-                    {
-                        ans += currCost;
-                        temp -= currCost;
-                    }
-                    ll nextFreq = mp[currElement + 1];
-                    ll nextElement = currElement + 1;
-                    ll nextCost = nextFreq * nextElement;
-                    if (temp < nextCost)
-                    {
-                        ans += (temp / nextElement) * nextElement;
-                        temp %= nextElement;
-                    }
-                    else
-                    {
-                        ans += nextCost;
-                        temp -= nextCost;
-                    }
-                    maxAns = max(maxAns, ans);
-                }
-            }
+            ll a = min(curr / uniquePetals[i].first, uniquePetals[i].second);
+            curr -= a * uniquePetals[i].first;
 
-            maxAns = max(maxAns, ans);
+            ll b = min(curr / uniquePetals[i + 1].first, uniquePetals[i + 1].second);
+            curr -= b * uniquePetals[i + 1].first;
+
+            ll x = min({a, uniquePetals[i + 1].second - b, curr});
+            curr -= x;
+
+            maxAns = max(maxAns, coins - curr);
         }
 
         cout << maxAns << endl;

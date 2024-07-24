@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// After squaring , value goes out of bounds
-
 /*
 C. Squaring
 time limit per test2 seconds
@@ -50,26 +48,50 @@ int main()
     {
         int n;
         cin >> n;
-        vector<long long int> arr(n);
+        vll arr(n);
         take(arr);
         ll count = 0;
+        ll last = 0;
         for (int i = 1; i < n; i++)
         {
-            if (arr[i] < arr[i - 1])
+
+            if (arr[i] == 1 && arr[i - 1] > 1)
             {
-                if (arr[i] == 1)
-                {
-                    cout << -1 << endl;
-                }
-                else
-                {
-                    while (arr[i] < arr[i - 1])
-                    {
-                        arr[i] *= arr[i];
-                        count++;
-                    }
-                }
+                count = -1;
+                break;
             }
+            ll v1 = arr[i];
+            ll v2 = arr[i - 1];
+            ll c1 = 0, c2 = 0;
+            while (v2 > v1)
+            {
+                v1 *= v1;
+                c1++;
+            }
+            while (v2 * v2 <= v1)
+            {
+                if (v2 == 1)
+                {
+                    c2 = -1;
+                    break;
+                }
+                v2 *= v2;
+                c2++;
+            }
+
+            if (c1 > 0)
+            {
+                last += c1;
+            }
+            else if (c2 == -1)
+            {
+                last = 0;
+            }
+            else
+            {
+                last = max(0ll, last - c2);
+            }
+            count += last;
         }
         cout << count << endl;
     }
