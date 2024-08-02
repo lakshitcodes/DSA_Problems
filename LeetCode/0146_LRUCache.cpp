@@ -3,36 +3,87 @@ using namespace std;
 
 // Question Link : https://leetcode.com/problems/lru-cache/
 
-// Solution Hereclass LRUCache {
+class Node
+{
 public:
-queue<int> q;
-vector<int> cache;
-LRUCache(int capacity)
-{
-    cache.resize(capacity, -1);
-}
-
-int get(int key)
-{
-    return cache[key];
-}
-
-void put(int key, int value)
-{
-    if (cache[key] == -1)
+    int key, value;
+    Node *next, *prev;
+    Node(int key, int value)
     {
-        cache[key] = value;
-        q.push(key);
+        this->key = key;
+        this->value = value;
+        this->next = nullptr;
+        this->prev = nullptr;
     }
-    else
+};
+
+class LRUCache
+{
+private:
+    void insertAtFront(Node *element)
     {
-        cache[q.front()] = value;
-        q.push(q.front());
-        q.pop();
+        element->next = head->next;
+        head->next->prev = element;
+        head->next = element;
+        element->prev = head;
     }
-}
-}
-;
+    void deleteAtPos(Node *element)
+    {
+        element->prev->next = element->next;
+        element->next->prev = element->prev;
+    }
+
+public:
+    unordered_map<int, Node *> mp;
+    int capacity;
+    Node *head, *tail;
+
+    LRUCache(int capacity)
+    {
+        this->capacity = capacity;
+        mp.clear();
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head->next = tail;
+        tail->prev = head;
+    }
+
+    int get(int key)
+    {
+        if (mp.find(key) == mp.end())
+        {
+            return -1;
+        }
+        Node *element = mp[key];
+        deleteAtPos(element);
+        insertAtFront(element);
+        return element->value;
+    }
+
+    void put(int key, int value)
+    {
+        if (mp.count(key))
+        {
+            mp[key]->value = value;
+            deleteAtPos(mp[key]);
+            insertAtFront(mp[key]);
+            return;
+        }
+        else
+        {
+            if (mp.size() == capacity)
+            {
+                Node *toDelete = tail->prev;
+                mp.erase(toDelete->key);
+                deleteAtPos(toDelete);
+                delete (toDelete);
+            }
+            Node *newElement = new Node(key, value);
+            mp[key] = newElement;
+            insertAtFront(newElement);
+        }
+    }
+};
 
 /**
  * Your LRUCache object will be instantiated and called as such:
