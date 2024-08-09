@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//Question Link : https://leetcode.com/problems/magic-squares-in-grid/description/
+// Question Link : https://leetcode.com/problems/magic-squares-in-grid/description/
 
 class Solution
 {
