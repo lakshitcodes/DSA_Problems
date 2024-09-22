@@ -12,7 +12,7 @@ using namespace std;
 #define m(a, b) map<a, b>
 #define set(a, b) set<a, b>
 #define sort(arr) sort(arr.begin(), arr.end())
-#define sum(arr) accumulate(arr.begin(), arr.end(), 0)
+#define sum(arr) accumulate(arr.begin(), arr.end(), 0LL)
 #define take(arr)       \
     for (auto &i : arr) \
         cin >> i;
