@@ -20,30 +20,56 @@ int main() {
     std::cin.tie(NULL);
     int t;
     cin >> t;
-    while (t--) {
-        int n;
-        cin>>n;
+    while (t--)
+    {
+        int n = 0;
+        cin >> n;
         string s;
-        cin>>s;
-        int p=INT_MAX,ss=-1;
-        int dc=0;
-        for(int i=0;i<n;i++){
-            if(s[i]=='p'){
-                if(p==INT_MAX){
-                    p=i;
+        cin >> s;
+ 
+        vector<vi> restrictions;
+ 
+        for (int i = 0; i < n; i++)
+        {
+            if (s[i] == 'p')
+            {
+                int length = i + 1;
+                restrictions.push_back({length, 1, length});
+            }
+            else if (s[i] == 's')
+            {
+                int length = n - i;
+                restrictions.push_back({length, i + 1, n});
+            }
+        }
+ 
+        if (restrictions.size())
+            sort(restrictions);
+ 
+        bool possible = true;
+ 
+        if (restrictions.size())
+            for (int i = 0; i < restrictions.size() - 1; i++)
+            {
+                vi restriction1 = restrictions[i], restriction2 = restrictions[i + 1];
+                int l1 = restriction1[1], r1 = restriction1[2], l2 = restriction2[1], r2 = restriction2[2];
+                if (l1 >= l2 && r1 <= r2)
+                {
+                    continue;
+                }
+                else
+                {
+                    possible = false;
                 }
             }
-            if(s[i]=='s'){
-                ss=i;
-            }
-            if(p!=INT_MAX)
-                dc+=s[i]=='.';
+ 
+        if (possible)
+        {
+            cout << "YES" << endl;
         }
-
-        if(p<ss || (p!=INT_MAX && ss!=-1 && dc)){
-            cout<<"NO\n";
-        }else{
-            cout<<"YES\n";
+        else
+        {
+            cout << "NO" << endl;
         }
     }
     return 0;

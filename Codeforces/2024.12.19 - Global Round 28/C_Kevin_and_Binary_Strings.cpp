@@ -39,7 +39,7 @@ int main() {
             }
         }
         if(first==-1){
-            cout<<n-1<<" "<<n-1<<endl;
+            cout<<max(1,n-1)<<" "<<max(1,n-1)<<endl;
             continue;
         }
         string required="";
@@ -63,7 +63,7 @@ int main() {
                 }
             }
         }
-        cout<<l+1+begin<<" "<<l+n-first+begin<<endl;
+        cout<<max(1,l+1+begin)<<" "<<max(1,l+n-first+begin)<<endl;
     }
     return 0;
 }
