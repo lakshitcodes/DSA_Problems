@@ -52,3 +52,39 @@ public:
         return result;
     }
 };
+
+// Updated Code
+class Solution {
+    public:
+        vector<int> largestDivisibleSubset(vector<int>& nums) {
+            std::ios_base::sync_with_stdio(false);
+            std::cin.tie(NULL);
+    
+            sort(nums.begin(),nums.end());
+            int n=nums.size();
+            vector<pair<int,int>> dp(n+1,{0,-1});
+            int maxIndex=0;
+            int maxVal=0;
+            for(int i=n-1;i>=0;i--){
+                for(int j=i+1;j<n;j++){
+                    if(nums[j]%nums[i]==0){
+                        if(dp[j].first+1>dp[i].first){
+                            dp[i]={dp[j].first+1,j};
+                            if(dp[i].first>maxVal){
+                                maxVal=dp[i].first;
+                                maxIndex=i;
+                            }
+                        }
+                    }
+                }
+            }
+    
+            vector<int> ans;
+            int currInd=maxIndex;
+            while(currInd!=-1){
+                ans.push_back(nums[currInd]);
+                currInd=dp[currInd].second;
+            }
+            return ans;
+        }
+    };
