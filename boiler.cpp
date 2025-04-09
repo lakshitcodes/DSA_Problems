@@ -40,7 +40,7 @@ using namespace std;
 #define m(a,b) map<a,b>
 #define um(a,b) unordered_map<a,b>
 #define f(i,a,b) for(int i=a;i<b;i++)
-#define sort(arr) sort(arr.begin(),arr.end())
+#define fsort(arr) sort(arr.begin(),arr.end())
 #define sum(arr) accumulate(arr.begin(),arr.end(),0LL)
 #define maxel(arr) *max_element(arr.begin(),arr.end())
 #define minel(arr) *min_element(arr.begin(),arr.end())
@@ -60,8 +60,35 @@ ll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) %
 ll mod_mul(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a * b) % m) + m) % m;}
 ll mminvprime(ll a, ll b) {return expo(a, b - 2, b);}
 ll mod_div(ll a, ll b, ll m) {a = a % m; b = b % m; return (mod_mul(a, mminvprime(b, m), m) + m) % m;}
+void printarr(ll arr[], ll n) {f(i, 0, n) cout << arr[i] << " "; cout << endl;}
 
-vector<ll> sieve(int n) {int*arr = new int[n + 1](); vector<ll> vect; for (int i = 2; i <= n; i++)if (arr[i] == 0) {vect.push_back(i); for (int j = 2 * i; j <= n; j += i)arr[j] = 1;} return vect;}
+vector<bool> sieve(int n) {
+    vector<bool> isPrime(n + 1, true);
+    isPrime[0] = isPrime[1] = false;
+    for (int i = 2; i * i <= n; i++) {
+        if (isPrime[i]) {
+            for (int j = i * i; j <= n; j += i) {
+               isPrime[j] = false;
+            }
+        }
+    }
+    return isPrime;
+}
+
+bool isPrime(int n) {
+    if (n <= 1)
+        return false;
+    if (n == 2)
+        return true;
+    if (n % 2 == 0)
+        return false;
+
+    for (int i = 3; i <= sqrt(n); i += 2) {
+        if (n % i == 0)
+            return false;
+    }
+    return true;
+}
 
 ll ask(ll a,ll b){
     cout<<"? "<<a<<' '<<b<<endl;
@@ -71,7 +98,7 @@ ll ask(ll a,ll b){
     return x;
 }
 
-void solve(){
+void lakshitcodes(){
     // Write your code from here
 }
 
@@ -81,7 +108,7 @@ int32_t main() {
     int t;
     cin >> t;
     while (t--) {
-        solve();
+        lakshitcodes();
     }
     return 0;
 }
