@@ -101,37 +101,9 @@ ll ask(ll a,ll b){
 void lakshitcodes(){
     int n,m,k;
     cin>>n>>m>>k;
-    if(k==2){
-        f(i,0,n){
-            if(i%2==0){
-                f(j,0,m){
-                    cout<<j%2+1<<" ";
-                }
-            }
-            else{
-                f(j,0,m){
-                    cout<<(j+1)%2+1<<" ";
-                }
-            }
-            cout<<endl;
-        }
-        return;
-    }
-    if(n>=k && n%k==0){
-        f(i,0,n){
-            f(j,0,m){
-                if(i&2)
-                    cout<<(m*i+j+1)%k+1<<" ";
-                else    
-                    cout<<(m*i+j)%k+1<<" ";
-            }
-            cout<<endl;
-        }
-        return;
-    }
     f(i,0,n){
         f(j,0,m){
-            cout<<(m*i+j)%k+1<<" ";
+            cout<<(j+max(1ll,m%k)*i)%k+1<<' ';
         }
         cout<<endl;
     }
