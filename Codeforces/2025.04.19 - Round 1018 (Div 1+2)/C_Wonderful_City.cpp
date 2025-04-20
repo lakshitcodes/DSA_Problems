@@ -98,76 +98,73 @@ ll ask(ll a,ll b){
     return x;
 }
 
+int getCost(vector<vi> &grid,vi &a){
+    int n=grid.size();
+    // notTake,take
+    ii prev={0LL,a[0]};
+
+    f(j,1,n){
+        ii curr={1e17,1e17};
+        bool c00=true,c10=true,c01=true;
+        f(i,0,n){
+            if(grid[i][j-1]==grid[i][j])    c00=false;
+            else if(grid[i][j-1]+1LL==grid[i][j])  c10=false;
+            else if(grid[i][j-1]==grid[i][j]+1LL)  c01=false;
+        }
+
+        // if none of the rows has to be incremented
+        // take the minimum of notTake, and for take add a[j] as it is the take cost
+        if(c00){
+            curr.ff=min(curr.ff,prev.ff);
+            curr.ss=min(curr.ss,a[j]+prev.ss);
+        }
+        // if only prev row has to be incremented
+        // if prev row has to be incremented , then take update the curr.ff(notTake) with prev.ss which was take for previous row
+        if(c10){
+            curr.ff=min(curr.ff,prev.ss);
+        }
+        // if only curr row has to be incremented
+        // update the curr.ss(take for current row) with not take of previous row + current cost
+        if(c01){
+            curr.ss=min(curr.ss,prev.ff+a[j]);
+        }
+
+        prev=curr;
+    }
+
+    ll ans=min(prev.ff,prev.ss);
+    if(ans>=(ll)1e17) return -1;
+    return ans;
+
+}
 void lakshitcodes(){
     int n;
     cin>>n;
-    vector<vi> a(n,vi(n));
+    vector<vi> grid(n,vi(n));
     f(i,0,n){
-        take(a[i]);
+        take(grid[i]);
     }
-    vi row(n,0),col(n,0);
-    take(row);
-    take(col);
+    vi a(n),b(n);
+    take(a);
+    take(b);
+    int hori=getCost(grid,b);
 
-    int ans=0;
-
-    f(i,0,n-1){
+    vector<vi> grid2(n,vi(n));
+    f(i,0,n){
         f(j,0,n){
-            if(a[i][j]==a[i+1][j]){
-                int val=0;
-                int minCost=INT_MAX;
-                if(row[i]>row[i+1]){
-                    val=0;
-                    minCost=min(minCost,row[i]);
-                }
-                else{
-                    val=1;
-                    minCost=min(minCost,row[i+1]);
-                }
-
-
-                ans+=minCost;
-                f(k,0,n){
-                    a[i+val][k]+=1;
-                }
-            }
-            if(j<n-1 && a[i][j]==a[i][j+1]){
-                int val=0;
-                int minCost=INT_MAX;
-                if(col[j]>col[j+1]){
-                    val=0;
-                    minCost=min(minCost,col[j]);
-                }
-                else{
-                    val=1;
-                    minCost=min(minCost,col[j+1]);
-                }
-
-                ans+=minCost;
-                f(k,0,n){
-                    a[k][j+val]+=1;
-                }
-            }
+            grid2[i][j]=grid[j][i];
         }
     }
-    if(n==6){
-        cout<<183<<endl;
+
+    int verti=getCost(grid2,a);
+
+    if(hori==-1 || verti==-1){
+        cout<<"-1\n";
         return;
     }
-    f(i,0,n-1){
-        f(j,0,n){
-            if(a[i][j]==a[i+1][j]){
-                cout<<-1<<endl;
-                return;
-            }
-            if(j<n-1 && a[i][j]==a[i][j+1]){
-                cout<<-1<<endl;
-                return;
-            }
-        }
-    }
-    cout<<ans<<endl;
-}
+    cout<<hori+verti<<endl;
+    return;
+}   
 
 int32_t main() {
     std::ios_base::sync_with_stdio(false);
