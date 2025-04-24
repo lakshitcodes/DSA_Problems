@@ -2,7 +2,7 @@
 
 A curated collection of Data Structures and Algorithms (DSA) problem solutions from various competitive programming platforms, organized for easy navigation and quick access.
 
-## 📂 Overview
+## Overview
 
 This repository contains my solutions to problems from the following platforms:
 
@@ -14,12 +14,14 @@ This repository contains my solutions to problems from the following platforms:
 - **InterviewBit** – Solutions organized by question name.
 - **LeetCode** – Solutions arranged by question name and number for easy lookup.
 - **Data Structures** – Modular, reusable implementations of commonly used data structures.
+- **CP-31** – Contains solutions from the CP-31 sheet by TLE Eliminators, organized by problem rating.
 - **`boiler.cpp`** – My competitive programming boilerplate with optimized macros, templates, and utility functions.
-- All filenames follow **PascalCase** formatting.
+
+All filenames follow **PascalCase** formatting.
 
 ---
 
-## 🧭 Navigation Guide
+## Navigation Guide
 
 ### 🔹 LeetCode
 
@@ -41,9 +43,15 @@ This repository contains my solutions to problems from the following platforms:
 
 - Find solutions using the **problem name**.
 
+### 🔹 CP-31
+
+- Contains subfolders for each **Codeforces rating** (e.g., 800, 900, 1000).
+- Each folder includes solutions for that rating from the CP-31 Sheet by TLE Eliminators.
+- Navigate by difficulty level and access clean, optimized C++ solutions.
+
 ---
 
-## 🚀 How to Use
+## How to Use
 
 1. **Clone the Repository**
    ```bash
@@ -57,6 +65,7 @@ This repository contains my solutions to problems from the following platforms:
      cd Leetcode
      cd Codeforces
      cd GeeksforGeeks
+     cd CP-31
      # ...and so on
      ```
 
@@ -68,22 +77,15 @@ This repository contains my solutions to problems from the following platforms:
 
 ---
 
-## 🛠️ Tech Stack
 
-- Language: **C++17/20**
-- IDE: VS Code / Sublime Text / Online Judges
-- Tools: Git, GitHub
-
----
-
-## 📜 License
+## License
 
 This repository is licensed under the **[MIT License](LICENSE)**.  
 Feel free to fork, contribute, and use the code for learning or interviews.
 
 ---
 
-## 🙌 Contribute
+## Contribute
 
 If you find a better solution or want to add new problems:
 1. Fork this repository.
@@ -92,13 +94,12 @@ If you find a better solution or want to add new problems:
 
 ---
 
-## 🎯 Stay Connected
+## Stay Connected
 
 For updates, tips, or DSA discussion, feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/jainlakshit) or explore my other projects on [GitHub](https://github.com/lakshitcodes).
 
 ---
 
 Happy Coding! 💻✨  
-*– Lakshit Jain*
+*-- Lakshit Jain*
 
----

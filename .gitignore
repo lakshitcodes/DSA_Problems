@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# MAC
+**/.DS_Store
+
 # Compiled Object files
 *.slo
 *.lo
@@ -34,5 +37,4 @@
 
 
 # Codeforces Helper Config Files
-**/.cph/
 **/.vscode/
