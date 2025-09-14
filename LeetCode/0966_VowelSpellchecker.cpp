@@ -54,22 +54,22 @@ public:
         for (auto &i : queries)
         {
             if (orig.count(i))
+            {
                 ans.push_back(i);
+            }
+            else if (caseInsensitive.count(toLower(i)))
+            {
+                ans.push_back(caseInsensitive[toLower(i)]);
+            }
+            else if (deVowel.count(deVowelWord(i)))
+            {
+                ans.push_back(deVowel[deVowelWord(i)]);
+            }
+            else
+            {
+                ans.push_back("");
+            }
         }
-        else if (caseInsensitive.count(toLower(i)))
-        {
-            ans.push_back(caseInsensitive[toLower(i)]);
-        }
-        else if (deVowel.count(deVowelWord(i)))
-        {
-            ans.push_back(deVowel[deVowelWord(i)]);
-        }
-        else
-        {
-            ans.push_back("");
-        }
+        return ans;
     }
-    return ans;
-}
-}
-;
+};
