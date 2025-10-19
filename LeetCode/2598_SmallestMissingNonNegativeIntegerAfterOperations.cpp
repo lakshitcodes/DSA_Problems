@@ -15,7 +15,7 @@ public:
         {
             int val = (i % value + value) % value;
             st[val]++;
-        }
+        }   
         for (int i = 0; i < 1e5 + 5; i++)
         {
             if (st.count(i % value) && st[i % value] > 0)
