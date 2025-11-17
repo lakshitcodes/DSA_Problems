@@ -6,7 +6,7 @@ using namespace std;
 class Solution
 {
 public:
-    int numSub(string s)
+    int numSub(string s) 
     {
         std::ios_base::sync_with_stdio(false);
         std::cin.tie(NULL);

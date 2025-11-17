@@ -5,7 +5,7 @@ using namespace std;
 
 class Solution
 {
-public:
+public: 
     int numberOfSubstrings(string s)
     {
         std::ios_base::sync_with_stdio(false);
